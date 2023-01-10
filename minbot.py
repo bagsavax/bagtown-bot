@@ -19,6 +19,8 @@ print(client)
 @client.event
 async def on_ready():
     print(f'We have logged in as {client.user}')
+    channel = client.get_channel(1061872520141230080)
+    await channel.send('I have been summoned')
 
 @client.event
 async def on_message(message):

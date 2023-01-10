@@ -201,10 +201,11 @@ class Owner(commands.Cog, name="owner"):
         :param context: The hybrid command context.
         """
         embed = discord.Embed(
-            description="Shutting down. Bye! :wave:",
+            description="gn mfers :wave:",
             color=0x9C84EF
         )
         await context.send(embed=embed)
+        # await context.send('gn')
         await self.bot.close()
 
     @commands.hybrid_command(

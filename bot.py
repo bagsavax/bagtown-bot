@@ -6,6 +6,8 @@ Description:
 Version: 5.4.2
 """
 
+# pls lord help me figure this out
+
 import asyncio
 import json
 import os
@@ -61,7 +63,9 @@ intents.presences = True
 """
 
 intents = discord.Intents.default()
-
+intents.typing = True
+intents.presences = False
+intents.message_content = True
 """
 Uncomment this if you want to use prefix (normal) commands.
 It is recommended to use slash commands and therefore not use prefix commands.
@@ -102,6 +106,8 @@ async def on_ready() -> None:
     print(f"Running on: {platform.system()} {platform.release()} ({os.name})")
     print("-------------------")
     status_task.start()
+    channel = bot.get_channel(1061872520141230080)
+    await channel.send('I have been summoned')
     if config["sync_commands_globally"]:
         print("Syncing commands globally...")
         await bot.tree.sync()
@@ -123,9 +129,27 @@ async def on_message(message: discord.Message) -> None:
 
     :param message: The message that was sent.
     """
-    print([(k,com) for k, com in bot.all_commands.items()])
+    print(message.content)
+    content = message.content.lower()
+
+    # print([(k,com) for k, com in bot.all_commands.items()])
+    print(message)
     if message.author == bot.user or message.author.bot:
         return
+    if content.startswith('hello'):
+        await message.channel.send('We are the bagettes')
+    if content.startswith('who came up with the name?'):
+        await message.channel.send('Artie')
+    if content.startswith('cum'):
+        await message.channel.send('geeee')
+    if content.startswith('bags'):
+        await message.channel.send('Yes, Master?')
+    if content.startswith('who are you?'):
+        await message.channel.send('I am Bagette, the #1 bot in Bagtown')
+
+    if content.startswith('where do the sewers go?'):
+        await message.channel.send('They say they lead to another town. A utopia of sorts. Where bags are flying freely in the skies')
+        # 
     await bot.process_commands(message)
 
 
@@ -229,4 +253,4 @@ async def load_cogs() -> None:
 
 asyncio.run(init_db())
 asyncio.run(load_cogs())
-bot.run("MTA2MTg3MzA0ODIwODI4NTcyMQ.G8Kgq7.lpOhg3Y_OwAn0FD0iiM6n4TyfRi6MOXLl4vxN4")
+bot.run(config['token'])
