@@ -13,6 +13,9 @@ from helpers import checks
 import os
 import openai
 from dotenv import load_dotenv
+from PIL import Image, ImageOps
+import numpy as np
+
 load_dotenv()
 openai.api_key = os.getenv("OPENAI_API_KEY")    
 # dotenv_path = join(dirname(__file__), '.env')
@@ -76,7 +79,52 @@ class Sewers(commands.Cog, name="sewers"):
         c = response.choices[0].text
         await context.send(c)
         # Don't forget to remove "pass", I added this just because there's no content in the method.
+    @commands.hybrid_command(
+    name="bagperson",
+    description="Will make a bag out of you",
+)
+    async def bagperson(self, context: Context):
+        """
+        This is a testing command that does nothing.
+
+        :param context: The application command context.
+        """
+        img_file = "piglets-now.png"
+        rgb_image = Image.open(img_file)
+        rgba_image = rgb_image.convert('RGBA')
+        rgba_image.save(img_file)
+        img = Image.open("piglets-now.png")
+        border = 256
+        alpha = Image.new('L', (1024-2*border,1024-2*border), "white")
+        alpha = ImageOps.expand(alpha, border)
+        dem_fps = ["piglets-now.png", "piglets-now.png", "piglets-now.png"]
+
+# Open each image in turn and push in our ready-made alpha channel
+        for item in dem_fps:
+            im = Image.open(item).convert('RGB')
+            im.putalpha(alpha)
+            im.save(f'RESULT-{item}')
+        alpha.save("testpics/pillowtest.png")
+        response = openai.Image.create_edit(
+            image=open("RESULT-piglets-now.png", "rb"),
+            # mask=open('piglets-now2.png', "rb"),
+            prompt="inside an extensive sewer system that has wires and other conspicuous devices",
+            n=1,
+            size='512x512', 
+            )
     
+        image_url = response['data'][0]['url']
+        await context.send(image_url)
+
+    @commands.Cog.listener('on_message')
+    async def piggies(self, message):
+        """Piggies
+        
+        """
+        if message.author == self.bot.user or message.author.bot:
+            return
+        if message.content.find('pig') != -1:
+            await message.channel.send('piggies')
 
 
 # And then we finally add the cog to the bot so that it can load, unload, reload and use it's content.
