@@ -13,15 +13,15 @@ from helpers import checks
 import os
 import openai
 from dotenv import load_dotenv
-
+load_dotenv()
+openai.api_key = os.getenv("OPENAI_API_KEY")    
 # dotenv_path = join(dirname(__file__), '.env')
 
 
 
 # Here we name the cog and create a new class for the cog.
 class Sewers(commands.Cog, name="sewers"):
-    load_dotenv()
-    openai.api_key = os.getenv("OPENAI_API_KEY")    
+    
     def __init__(self, bot):
         self.bot = bot
 
@@ -66,16 +66,16 @@ class Sewers(commands.Cog, name="sewers"):
         response = openai.Completion.create(
             model="text-davinci-003",
             prompt="Topic: Sewers\nTwo-Sentence Cryptic Story: No one knows who lurks in the Sewers. Some say they're a group of geniuses intent on saving Bagtown. Others say they want to destroy Bagtown. \n    \nTopic: Bagtown\nTwo-Sentence Cryptic Story:",
-            temperature=0.8,
+            temperature=0.9,
             max_tokens=50,
             top_p=1.0,
             frequency_penalty=0.5,
             presence_penalty=0.0
             )
         # Do your stuff here
-        print(response.choices)
-        
-        await context.send(response.choices[0].text)
+        c = response.choices[0].text
+        print(c)
+        await context.send(c)
         # Don't forget to remove "pass", I added this just because there's no content in the method.
     
 

@@ -117,6 +117,12 @@ async def on_ready() -> None:
         print("Syncing commands globally...")
         await bot.tree.sync()
 
+# @bot.command()
+# @commands.is_owner()
+# async def reload(ctx, extension):
+#     bot.reload_extension(f"cogs.{extension}")
+#     embed = discord.Embed(title='Reload', description=f'{extension} successfully reloaded', color=0xff00c8)
+#     await ctx.send(embed=embed)
 
 @tasks.loop(minutes=1.0)
 async def status_task() -> None:
@@ -173,7 +179,7 @@ async def on_command_completion(context: Context) -> None:
             f"Executed {executed_command} command in {context.guild.name} (ID: {context.guild.id}) by {context.author} (ID: {context.author.id})")
     else:
         print(
-            f"Executed {executed_command} command by {context.author} (ID: {context.author.id}) in DMs")
+            f"Executed {executed_command} command bye {context.author} (ID: {context.author.id}) in DMs")
 
 
 @bot.event
@@ -256,7 +262,6 @@ async def load_cogs() -> None:
                 print(f"Failed to load extension {extension}\n{exception}")
 
 
-os.getenv("DISCORD_TOKEN")
 asyncio.run(init_db())
 asyncio.run(load_cogs())
 bot.run(os.getenv("DISCORD_TOKEN"))

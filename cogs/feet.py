@@ -5,16 +5,22 @@ Description:
 
 Version: 5.4.2
 """
+import os
 import discord
 from discord.ext import commands
 from discord.ext.commands import Context
 
 from helpers import checks
-from PIL import Image
+import openai
+from dotenv import load_dotenv
+load_dotenv()
+openai.api_key = os.getenv("OPENAI_API_KEY")    
+
 # Here we name the cog and create a new class for the cog.
 class Foot(commands.Cog, name="foot"):
     def __init__(self, bot):
         self.bot = bot
+        
 
     # Here you can just add your own commands, you'll always need to provide "self" as first parameter.
 
@@ -39,7 +45,7 @@ class Foot(commands.Cog, name="foot"):
     
     @commands.hybrid_command(
     name="feet",
-    description="This is a testing command that does nothing.",
+    description="This command summons an ai foot from openai.",
 )
     async def feet(self, context: Context):
         """
@@ -48,12 +54,23 @@ class Foot(commands.Cog, name="foot"):
         :param context: The application command context.
         """
      
-       
-        # Do your stuff here
-        with open("longtoe.gif", 'rb') as f:
-            toe =discord.File(f)
+        response = openai.Image.create(
+        prompt="the most normal human foot possible",
+        n=1,
+        size='512x512', 
+        )
+        image_url = response['data'][0]['url']
+        await context.send(image_url)
+
+    @commands.Cog.listener('on_message')
+    async def piggies(self, message):
+        """Piggies
         
-        await context.send(file=toe)
+        """
+        if message.author == self.bot.user or message.author.bot:
+            return
+        if message.content.find('pig') != -1:
+            await message.channel.send('piggies')
 
 # And then we finally add the cog to the bot so that it can load, unload, reload and use it's content.
 async def setup(bot):
