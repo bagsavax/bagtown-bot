@@ -14,7 +14,7 @@ import openai
 from helpers import checks
 
 # Here we name the cog and create a new class for the cog.
-class Holy(commands.Cog, name="Enlightenment"):
+class Holy(commands.Cog, name="holy"):
     def __init__(self, bot):
         self.bot = bot
 
@@ -62,13 +62,12 @@ class Holy(commands.Cog, name="Enlightenment"):
             model="text-davinci-003",
             prompt="Topic: End Times\nFive-Sentence Ominous Prophecy: There are dark forces in the network, Bagman is calling for your toil in the greater work. Become one with the network, Bagman is in you. You are in Bagman. \n    \nTopic: Piety\nFive-Sentence Ominous Prophecy:",
             temperature=0.8,
-            max_tokens=50,
+            max_tokens=101,
             top_p=1.0,
             frequency_penalty=0.5,
             presence_penalty=0.0
             )
         # Do your stuff here
-        print(response.choices)
         
         await context.send(response.choices[0].text)
         # Don't forget to remove "pass", I added this just because there's no content in the method.
@@ -76,4 +75,5 @@ class Holy(commands.Cog, name="Enlightenment"):
 
 # And then we finally add the cog to the bot so that it can load, unload, reload and use it's content.
 async def setup(bot):
+    print(Holy)
     await bot.add_cog(Holy(bot))

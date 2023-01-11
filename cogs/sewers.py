@@ -74,7 +74,6 @@ class Sewers(commands.Cog, name="sewers"):
             )
         # Do your stuff here
         c = response.choices[0].text
-        print(c)
         await context.send(c)
         # Don't forget to remove "pass", I added this just because there's no content in the method.
     
