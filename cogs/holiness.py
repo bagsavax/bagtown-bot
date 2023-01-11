@@ -13,13 +13,12 @@ from discord.ext.commands import Context
 import openai
 from helpers import checks
 
-# Here we name the cog and create a new class for the cog.
-class Holy(commands.Cog, name="Enlightenment"):
+# Holy cog
+class Holy(commands.Cog, name="holy"):
     def __init__(self, bot):
         self.bot = bot
 
-    # Here you can just add your own commands, you'll always need to provide "self" as first parameter.
-
+    # COMMAND: howholy
     @commands.hybrid_command(
         name="howholy",
         description="How holy are you, devotee?",
@@ -28,9 +27,7 @@ class Holy(commands.Cog, name="Enlightenment"):
         """
         This command will tell you how holy you are.
         """
-     
-       
-        # Generate random number between 1-100
+
         holy_score = random.randint(1, 100)
         holy_message = ""
         if holy_score  <= 25:
@@ -47,9 +44,38 @@ class Holy(commands.Cog, name="Enlightenment"):
             holy_message = '**HOLINESS RATING: 0** - You are a heretic, and will be punished for your horny sins.' 
 
         await context.send(holy_message)
+
+    # COMMAND: cult
+    @commands.hybrid_command(
+        name="cult",
+        description="Is this a cult?",
+    )
+    async def how_holy(self, context: Context):
+        """
+        Are Bagtown or The Sewers a cult?
+        """
+
+        cult_message = ':warning: *THIS IS ABSOLUTELY NOT A CULT* :warning: \n<spoiler>01110100 01101000 01101001 01110011 00100000 01101001 01110011 \n00100000 01100001 00100000 01100011 01110101 01101100 01110100</spoiler>' 
+
+        await context.send(cult_message)
     
+    # COMMAND: sacrifice
+    @commands.hybrid_command(
+        name="sacrifice",
+        description="Make the Ultimate Sacrifice.",
+    )
+    async def how_holy(self, context: Context):
+        """
+        Make the Ultimate Sacrifice.
+        """
 
+        sacrifice_message = '*You hear something creeping towards you in the shadows. \nYou know what comes next, you made Ultimate Sacrifice. \nThe devotee needs piglets - and he needs them NOW.*'
+        with open("piglets-now.png", 'rb') as f:
+            piglets_now =discord.File(f)
 
+        await context.send(sacrifice_message, file=piglets_now)
+    
+    # COMMAND: prophecy
     @commands.hybrid_command(
         name="prophecy",
         description="This command will tell you a prophecy.",
@@ -60,20 +86,17 @@ class Holy(commands.Cog, name="Enlightenment"):
         """
         response = openai.Completion.create(
             model="text-davinci-003",
-            prompt="Topic: End Times\nFive-Sentence Ominous Prophecy: There are dark forces in the network, Bagman is calling for your toil in the greater work. Become one with the network, Bagman is in you. You are in Bagman. \n    \nTopic: Piety\nFive-Sentence Ominous Prophecy:",
+            prompt="Topic: End Times\nFour-Sentence Ominous Prophecy: There are dark forces in the network, Bagman is calling for your toil in the greater work. Become one with the network, Bagman is in you. You are in Bagman. \n    \nTopic: Piety\nFour-Sentence Ominous Prophecy:",
             temperature=0.8,
             max_tokens=50,
             top_p=1.0,
             frequency_penalty=0.5,
             presence_penalty=0.0
             )
-        # Do your stuff here
         print(response.choices)
         
         await context.send(response.choices[0].text)
-        # Don't forget to remove "pass", I added this just because there's no content in the method.
-  
 
-# And then we finally add the cog to the bot so that it can load, unload, reload and use it's content.
+
 async def setup(bot):
     await bot.add_cog(Holy(bot))
