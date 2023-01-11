@@ -23,6 +23,11 @@ from discord.ext.commands import Bot, Context
 
 import exceptions
 
+from dotenv import load_dotenv
+
+# dotenv_path = join(dirname(__file__), '.env')
+load_dotenv()
+
 if not os.path.isfile(f"{os.path.realpath(os.path.dirname(__file__))}/config.json"):
     sys.exit("'config.json' not found! Please add it and try again.")
 else:
@@ -149,7 +154,8 @@ async def on_message(message: discord.Message) -> None:
 
     if content.startswith('where do the sewers go?'):
         await message.channel.send('They say they lead to another town. A utopia of sorts. Where bags are flying freely in the skies')
-        # 
+    if content.find('sewer') != -1:
+        await message.channel.send('excuse me what')
     await bot.process_commands(message)
 
 
@@ -250,7 +256,7 @@ async def load_cogs() -> None:
                 print(f"Failed to load extension {extension}\n{exception}")
 
 
-
+os.getenv("DISCORD_TOKEN")
 asyncio.run(init_db())
 asyncio.run(load_cogs())
-bot.run(config['token'])
+bot.run(os.getenv("DISCORD_TOKEN"))
