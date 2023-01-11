@@ -51,12 +51,12 @@ class Holy(commands.Cog, name="holy"):
         name="cult",
         description="Is this a cult?",
     )
-    async def how_holy(self, context: Context):
+    async def is_cult(self, context: Context):
         """
         Are Bagtown or The Sewers a cult?
         """
 
-        cult_message = ':warning: *THIS IS ABSOLUTELY NOT A CULT* :warning: \n<spoiler>01110100 01101000 01101001 01110011 00100000 01101001 01110011 \n00100000 01100001 00100000 01100011 01110101 01101100 01110100</spoiler>' 
+        cult_message = ':warning: *THIS IS ABSOLUTELY NOT A CULT* :warning: \n|| 01110100 01101000 01101001 01110011 00100000 01101001 01110011 \n00100000 01100001 00100000 01100011 01110101 01101100 01110100 ||' 
 
         await context.send(cult_message)
     
@@ -65,7 +65,7 @@ class Holy(commands.Cog, name="holy"):
         name="sacrifice",
         description="Make the Ultimate Sacrifice.",
     )
-    async def how_holy(self, context: Context):
+    async def holy_sacrifice(self, context: Context):
         """
         Make the Ultimate Sacrifice.
         """
@@ -101,5 +101,4 @@ class Holy(commands.Cog, name="holy"):
 
 
 async def setup(bot):
-    print(Holy)
     await bot.add_cog(Holy(bot))
