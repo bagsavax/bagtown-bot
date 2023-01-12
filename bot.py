@@ -135,7 +135,6 @@ async def on_message(message: discord.Message) -> None:
 
     :param message: The message that was sent.
     """
-    print(message.content)
     content = message.content.lower()
 
     # print([(k,com) for k, com in bot.all_commands.items()])

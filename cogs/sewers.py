@@ -15,12 +15,23 @@ import openai
 from dotenv import load_dotenv
 from PIL import Image, ImageOps
 import numpy as np
+from io import BytesIO
+import requests
+from helpers.gpt_helpers import prep_gpt_image
 
 load_dotenv()
 openai.api_key = os.getenv("OPENAI_API_KEY")    
 # dotenv_path = join(dirname(__file__), '.env')
 
-
+def crop_image_only_outside(img,tol=0):
+    # img is 2D image data
+    # tol  is tolerance
+    mask = img>tol
+    m,n = img.shape
+    mask0,mask1 = mask.any(0),mask.any(1)
+    col_start,col_end = mask0.argmax(),n-mask0[::-1].argmax()
+    row_start,row_end = mask1.argmax(),m-mask1[::-1].argmax()
+    return img[row_start:row_end,col_start:col_end]
 
 # Here we name the cog and create a new class for the cog.
 class Sewers(commands.Cog, name="sewers"):
@@ -80,7 +91,7 @@ class Sewers(commands.Cog, name="sewers"):
         await context.send(c)
         # Don't forget to remove "pass", I added this just because there's no content in the method.
     @commands.hybrid_command(
-    name="bagperson",
+    name="bp",
     description="Will make a bag out of you",
 )
     async def bagperson(self, context: Context):
@@ -89,30 +100,26 @@ class Sewers(commands.Cog, name="sewers"):
 
         :param context: The application command context.
         """
-        img_file = "piglets-now.png"
-        rgb_image = Image.open(img_file)
-        rgba_image = rgb_image.convert('RGBA')
-        rgba_image.save(img_file)
-        img = Image.open("piglets-now.png")
-        border = 256
-        alpha = Image.new('L', (1024-2*border,1024-2*border), "white")
-        alpha = ImageOps.expand(alpha, border)
-        dem_fps = ["piglets-now.png", "piglets-now.png", "piglets-now.png"]
-
-# Open each image in turn and push in our ready-made alpha channel
-        for item in dem_fps:
-            im = Image.open(item).convert('RGB')
-            im.putalpha(alpha)
-            im.save(f'RESULT-{item}')
-        alpha.save("testpics/pillowtest.png")
+        img_file = "lootboi.png"
+        avatar_url = str(context.author.display_avatar)
+        name = context.author.name
+        print(avatar_url)
+        byts = prep_gpt_image(avatar_url, name=str(context.author.name))
+        await context.send("pls be patient I'm a little slow at this")
+# 7) Add a text prompt, could be the same as the
+# original or with additional descriptive focus on
+# surrounding: Oil painting, portrait of a boy with a
+# sloth in a vintage office, mid-century modern
+# design, painting by Frida Kahlo (1932), from
+# Mexican Modernism exhibition
         response = openai.Image.create_edit(
-            image=open("RESULT-piglets-now.png", "rb"),
+            image=byts,
             # mask=open('piglets-now2.png', "rb"),
-            prompt="inside an extensive sewer system that has wires and other conspicuous devices",
+            prompt="The setting is a sewer. A large sewer pipe that has some wires along the sides. Put the photo in that setting.",
             n=1,
             size='512x512', 
             )
-    
+# Take a photo of an individual and make it long shot, wide shot, full shot. The individual is walking down a large sewer pipe that has wires and other strange devices. the individual is wearing a plastic shopping bag or grocery bag over their head.
         image_url = response['data'][0]['url']
         await context.send(image_url)
 
