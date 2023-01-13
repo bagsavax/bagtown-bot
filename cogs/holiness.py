@@ -85,7 +85,7 @@ class Holy(commands.Cog, name="holy"):
         """
         Use OpenAi to generate responses composed of Sewer Prophesy lore.
         """
-        response = openai.Completion.create(
+        response = await openai.Completion.create(
             model="text-davinci-003",
             prompt="Topic: End Times\nFour-Sentence Ominous Prophecy: There are dark forces in the network, Bagman is calling for your toil in the greater work. Become one with the network, Bagman is in you. You are in Bagman. \n    \nTopic: Piety\nFour-Sentence Ominous Prophecy:",
             temperature=0.8,

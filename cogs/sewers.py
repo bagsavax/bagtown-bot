@@ -42,6 +42,13 @@ class Sewers(commands.Cog, name="sewers"):
     # Here you can just add your own commands, you'll always need to provide "self" as first parameter.
 
     @commands.hybrid_command(
+    name="tt",
+    description="Will make a bag out of you",
+)
+    async def testt(self, context: Context, arg):
+        await context.send(arg)
+
+    @commands.hybrid_command(
         name="schemers", 
         description="This is a testing command that does nothing.",
     )
@@ -94,32 +101,29 @@ class Sewers(commands.Cog, name="sewers"):
     name="bp",
     description="Will make a bag out of you",
 )
-    async def bagperson(self, context: Context):
+    async def bagperson(self, context: Context, user:discord.User = None):
         """
         This is a testing command that does nothing.
 
+        DALL-E prompts: Text prompt with descriptive focus on surroundings. the more specific the better
+
         :param context: The application command context.
         """
-        img_file = "lootboi.png"
-        avatar_url = str(context.author.display_avatar)
+        if user is None:
+            avatar_url = str(context.author.display_avatar)
+        else:
+            avatar_url = user.display_avatar
         name = context.author.name
-        print(avatar_url)
+        print(user)
         byts = prep_gpt_image(avatar_url, name=str(context.author.name))
         await context.send("pls be patient I'm a little slow at this")
-# 7) Add a text prompt, could be the same as the
-# original or with additional descriptive focus on
-# surrounding: Oil painting, portrait of a boy with a
-# sloth in a vintage office, mid-century modern
-# design, painting by Frida Kahlo (1932), from
-# Mexican Modernism exhibition
         response = openai.Image.create_edit(
             image=byts,
             # mask=open('piglets-now2.png', "rb"),
-            prompt="The setting is a sewer. A large sewer pipe that has some wires along the sides. Put the photo in that setting.",
+            prompt="The setting is an underground sewer. Sewers are large pipes where different kinds of waste flow. Sewers also contain wires running down the hallway and other things of that nature. A large sewer pipe that has some wires along the sides. Put the photo in that setting.",
             n=1,
-            size='512x512', 
+            size='1024x1024', 
             )
-# Take a photo of an individual and make it long shot, wide shot, full shot. The individual is walking down a large sewer pipe that has wires and other strange devices. the individual is wearing a plastic shopping bag or grocery bag over their head.
         image_url = response['data'][0]['url']
         await context.send(image_url)
 

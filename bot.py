@@ -148,7 +148,7 @@ async def on_message(message: discord.Message) -> None:
     if content.startswith('cum'):
         await message.channel.send('geeee')
     if content.startswith('bags'):
-        await message.channel.send('Yes, Master?')
+        await message.channel.send('how can i help?')
     if content.startswith('who are you?'):
         await message.channel.send('I am Bagette, the #1 bot in Bagtown')
 
