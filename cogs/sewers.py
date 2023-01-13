@@ -67,7 +67,7 @@ class Sewers(commands.Cog, name="sewers"):
         await context.send(file=toe)
         # Don't forget to remove "pass", I added this just because there's no content in the method.
     @commands.hybrid_command(
-        name="lore",
+        name="sewerlore",
         description="This is a testing command that does nothing.",
     )
     async def lore(self, context: Context):
@@ -84,7 +84,7 @@ class Sewers(commands.Cog, name="sewers"):
 
         # Check your settings. The temperature and top_p settings control how deterministic the model is in generating a response. If you're asking it for a response where there's only one right answer, then you'd want to set these lower. If you're looking for more diverse responses, then you might want to set them higher. The number one mistake people use with these settings is assuming that they're "cleverness" or "creativity" controls.
         # openai.api_key = os.getenv('OPENAI_API_KEY')
-        response = openai.Completion.create(
+        response = await openai.Completion.create(
             model="text-davinci-003",
             prompt="Topic: Sewers\nTwo-Sentence Cryptic Story: No one knows who lurks in the Sewers. Some say they're a group of geniuses intent on saving Bagtown. Others say they want to destroy Bagtown. \n    \nTopic: Bagtown\nTwo-Sentence Cryptic Story:",
             temperature=0.9,
@@ -117,7 +117,7 @@ class Sewers(commands.Cog, name="sewers"):
         print(user)
         byts = prep_gpt_image(avatar_url, name=str(context.author.name))
         await context.send("pls be patient I'm a little slow at this")
-        response = openai.Image.create_edit(
+        response = await openai.Image.create_edit(
             image=byts,
             # mask=open('piglets-now2.png', "rb"),
             prompt="The setting is an underground sewer. Sewers are large pipes where different kinds of waste flow. Sewers also contain wires running down the hallway and other things of that nature. A large sewer pipe that has some wires along the sides. Put the photo in that setting.",
