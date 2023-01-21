@@ -23,14 +23,14 @@ class Foot(commands.Cog, name="foot"):
         
 
     # Here you can just add your own commands, you'll always need to provide "self" as first parameter.
-
+    
     @commands.hybrid_command(
         name="toe",
-        description="This is a testing command that does nothing.",
+        description="Long piggie",
     )
     async def longtoe(self, context: Context):
         """
-        This is a testing command that does nothing.
+        Senbds the piggie gif
 
         :param context: The application command context.
         """
@@ -45,7 +45,7 @@ class Foot(commands.Cog, name="foot"):
     
     @commands.hybrid_command(
     name="feet",
-    description="This command summons an ai foot from openai.",
+    description="This command summons an ai foot",
 )
     async def feet(self, context: Context):
         """
@@ -53,7 +53,7 @@ class Foot(commands.Cog, name="foot"):
 
         :param context: The application command context.
         """
-     
+        await context.send('pls be patient im a little slow at this')
         response = openai.Image.create(
         prompt="the most normal human foot possible",
         n=1,
