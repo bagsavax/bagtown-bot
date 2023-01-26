@@ -22,7 +22,6 @@ class Interactions(commands.Cog, name="interactions"):
             await context.send('f off m8')
 
 
-    # COMMAND: howholy
     @commands.Cog.listener('on_message')
     async def ask_bagette(self, message,):
         print(message.content)
