@@ -18,12 +18,13 @@ class Responses(commands.Cog, name="responses"):
         """Piggies
         
         """
+        b= "bagette"
         if message.author == self.bot.user or message.author.bot:
             return
-        if message.content.find('bagette'.lower()) != -1:
-            await message.channel.send('hello')
+        if message.content.lower().find('bagette') != -1:
+            await message.channel.send('can i help you')
 
-    @commands.Cog.listener('on_message'.lower())
+    @commands.Cog.listener('on_message')
     async def iwillpat(self, message):    
         if message.author == 745044163170402365:
             await message.channel.send("ooooo ooo wienie boy weinie boy")
@@ -35,16 +36,9 @@ class Responses(commands.Cog, name="responses"):
         """
         if message.author == self.bot.user or message.author.bot:
             return
-        if message.content.startswith('cum'.lower()):
+        if message.content.lower().find('cum') != -1:
             await message.channel.send('geeee')
 
-    @commands.Cog.listener('on_message')
-    async def geeee(self, message):
-        """Piggies
-        
-        """
-        if message.content.startswith('who are you?'.lower()):
-           await message.channel.send('I am Bagette, the #1 bot in Bagtown')
 
 async def setup(bot):
     await bot.add_cog(Responses(bot))
