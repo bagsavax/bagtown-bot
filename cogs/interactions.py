@@ -2,6 +2,7 @@ import discord
 from discord.ext import commands
 from discord.ext.commands import Context
 
+
 from helpers import checks
 
 
@@ -22,6 +23,7 @@ class Interactions(commands.Cog, name="interactions"):
         if str(context.message.content).startswith('<@1061873048208285721>'):
             m = str(context.message.content).strip("<@1061873048208285721>")
             await context.send('f off m8')
+
 
     @commands.hybrid_command(
     name="astro",

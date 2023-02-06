@@ -38,6 +38,7 @@ class Responses(commands.Cog, name="responses"):
             return
         if message.content.lower().find('cum') != -1:
             await message.channel.send('geeee')
+
     
     @commands.Cog.listener('on_message')
     async def cum(self, message):
