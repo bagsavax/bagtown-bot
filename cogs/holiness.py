@@ -85,7 +85,7 @@ class Holy(commands.Cog, name="holy"):
         """
         Use OpenAi to generate responses composed of Sewer Prophesy lore.
         """
-        response = await openai.Completion.agicreate(
+        response = await openai.Completion.acreate(
             model="text-davinci-003",
             prompt="Topic: End Times\nFour-Sentence Ominous Prophecy: There are dark forces in the network, Bagman is calling for your toil in the greater work. Become one with the network, Bagman is in you. You are in Bagman. \n    \nTopic: Piety\nFour-Sentence Ominous Prophecy:",
             temperature=0.8,
@@ -98,7 +98,24 @@ class Holy(commands.Cog, name="holy"):
 
         
         await context.send(response.choices[0].text)
+    @commands.has_role("bagtown board")
+    @commands.hybrid_command(
+        name="thesewers", 
+        description="what are they scheming?",
+    )
+    async def sewerlorevid(self, context: Context):
+        """
+        This is a testing command that does nothing.
 
+        :param context: The application command context.
+        """
+     
+       
+        # Do your stuff here
+        with open("The Sewers.mp4", 'rb') as f:
+            toe =discord.File(f)
+        
+        await context.send(file=toe)
 
 async def setup(bot):
     await bot.add_cog(Holy(bot))

@@ -23,14 +23,14 @@ class Foot(commands.Cog, name="foot"):
         
 
     # Here you can just add your own commands, you'll always need to provide "self" as first parameter.
-
+    
     @commands.hybrid_command(
         name="toe",
-        description="This is a testing command that does nothing.",
+        description="Long piggie",
     )
     async def longtoe(self, context: Context):
         """
-        This is a testing command that does nothing.
+        Senbds the piggie gif
 
         :param context: The application command context.
         """
@@ -45,7 +45,7 @@ class Foot(commands.Cog, name="foot"):
     
     @commands.hybrid_command(
     name="feet",
-    description="This command summons an ai foot from openai.",
+    description="This command summons an ai foot",
 )
     async def feet(self, context: Context):
         """
@@ -53,7 +53,7 @@ class Foot(commands.Cog, name="foot"):
 
         :param context: The application command context.
         """
-     
+        await context.send('pls be patient im a little slow at this')
         response = openai.Image.create(
         prompt="the most normal human foot possible",
         n=1,
@@ -62,6 +62,20 @@ class Foot(commands.Cog, name="foot"):
         image_url = response['data'][0]['url']
         await context.send(image_url)
 
+    @commands.hybrid_command(
+    name="wrath",
+    description="daddy")
+    async def wrath(self, context: Context):
+        """wrath command
+
+        Args:
+            message (_type_): _description_
+        """
+        with open("crying zoomer.jpg",  'rb') as f:
+            img =discord.File(f)
+
+        await context.send(file=img)
+
     @commands.Cog.listener('on_message')
     async def piggies(self, message):
         """Piggies
@@ -69,7 +83,7 @@ class Foot(commands.Cog, name="foot"):
         """
         if message.author == self.bot.user or message.author.bot:
             return
-        if message.content.find('pig') != -1:
+        if message.content.find('pig'.lower()) != -1:
             await message.channel.send('piggies')
 
 # And then we finally add the cog to the bot so that it can load, unload, reload and use it's content.

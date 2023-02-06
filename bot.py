@@ -1,7 +1,7 @@
 """
 Copyright © Krypton 2019-2022 - https://github.com/kkrypt0nn (https://krypton.ninja)
 Description:
-🐍 A simple template to start to code your own and personalized discord bot in Python programming language.
+A simple template to start to code your own and personalized discord bot in Python programming language.
 
 Version: 5.4.2
 """
@@ -111,7 +111,7 @@ async def on_ready() -> None:
     print(f"Running on: {platform.system()} {platform.release()} ({os.name})")
     print("-------------------")
     status_task.start()
-    channel = bot.get_channel(1061872520141230080)
+    channel = bot.get_channel(1058160295975075900)
     await channel.send('I have been summoned')
     if config["sync_commands_globally"]:
         print("Syncing commands globally...")
@@ -124,39 +124,8 @@ async def status_task() -> None:
     """
     Setup the game status task of the bot
     """
-    statuses = ["with you!", "with Krypton!", "with humans!"]
+    statuses = ["with fate"]
     await bot.change_presence(activity=discord.Game(random.choice(statuses)))
-
-
-@bot.event
-async def on_message(message: discord.Message) -> None:
-    """
-    The code in this event is executed every time someone sends a message, with or without the prefix
-
-    :param message: The message that was sent.
-    """
-    content = message.content.lower()
-
-    # print([(k,com) for k, com in bot.all_commands.items()])
-    print(message)
-    if message.author == bot.user or message.author.bot:
-        return
-    if content.startswith('hello'):
-        await message.channel.send('We are the bagettes')
-    if content.startswith('who came up with the name?'):
-        await message.channel.send('Artie')
-    if content.startswith('cum'):
-        await message.channel.send('geeee')
-    if content.startswith('bags'):
-        await message.channel.send('how can i help?')
-    if content.startswith('who are you?'):
-        await message.channel.send('I am Bagette, the #1 bot in Bagtown')
-
-    if content.startswith('where do the sewers go?'):
-        await message.channel.send('They say they lead to another town. A utopia of sorts. Where bags are flying freely in the skies')
-    if content.find('sewer') != -1:
-        await message.channel.send('excuse me what')
-    await bot.process_commands(message)
 
 
 @bot.event
