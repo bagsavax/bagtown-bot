@@ -85,7 +85,7 @@ bot = Bot(command_prefix=commands.when_mentioned_or(
 
 async def init_db():
     async with aiosqlite.connect("{}/database/database.db".format(os.path.realpath(os.path.dirname(__file__)))) as db:
-        with open(f"{os.path.realpath(os.path.dirname(__file__))}/database/schema.sql") as file:
+        with open("{}/database/schema.sql".format(os.path.realpath(os.path.dirname(__file__)))) as file:
             await db.executescript(file.read())
         await db.commit()
 
