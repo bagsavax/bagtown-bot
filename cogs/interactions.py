@@ -7,6 +7,12 @@ from helpers import checks
 
 
 class Interactions(commands.Cog, name="interactions"):
+    """A group of commands 
+
+    Args:
+        commands (_type_): _description_
+        name (str, optional): _description_. Defaults to "interactions".
+    """
     
     def __init__(self, bot):
         self.bot = bot
