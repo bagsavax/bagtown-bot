@@ -111,7 +111,9 @@ async def on_ready() -> None:
     print(f"Running on: {platform.system()} {platform.release()} ({os.name})")
     print("-------------------")
     status_task.start()
-    channel = bot.get_channel(1058160295975075900)
+    # general
+    # channel = bot.get_channel(1058160295975075900)
+    channel = bot.get_channel(1058466940051525742)
     await channel.send('I have been summoned')
     if config["sync_commands_globally"]:
         print("Syncing commands globally...")
