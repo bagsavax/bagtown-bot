@@ -84,7 +84,7 @@ class Foot(commands.Cog, name="foot"):
         if message.author == self.bot.user or message.author.bot:
             return
         if message.content.find('pig'.lower()) != -1:
-            await message.channel.send('pigs')
+            await message.channel.send('piggs')
 
 # And then we finally add the cog to the bot so that it can load, unload, reload and use it's content.
 async def setup(bot):

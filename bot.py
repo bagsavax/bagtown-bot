@@ -113,8 +113,8 @@ async def on_ready() -> None:
     status_task.start()
     # general
     # channel = bot.get_channel(1058160295975075900)
-    channel = bot.get_channel(1058466940051525742)
-    await channel.send('I have been summoned')
+    # channel = bot.get_channel(1058466940051525742)
+    # await channel.send('I have been summoned')
     if config["sync_commands_globally"]:
         print("Syncing commands globally...")
         await bot.tree.sync()
