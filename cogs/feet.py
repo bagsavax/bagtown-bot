@@ -37,7 +37,7 @@ class Foot(commands.Cog, name="foot"):
      
        
         # Do your stuff here
-        with open("longtoe.gif", 'rb') as f:
+        with open("/images/longtoe.gif", 'rb') as f:
             toe =discord.File(f)
         
         await context.send(file=toe)
@@ -71,7 +71,7 @@ class Foot(commands.Cog, name="foot"):
         Args:
             message (_type_): _description_
         """
-        with open("crying zoomer.jpg",  'rb') as f:
+        with open("/images/crying zoomer.jpg",  'rb') as f:
             img =discord.File(f)
 
         await context.send(file=img)
