@@ -61,7 +61,7 @@ class Sewers(commands.Cog, name="sewers"):
      
        
         # Do your stuff here
-        with open("/images/longtoe.gif", 'rb') as f:
+        with open("images/longtoe.gif", 'rb') as f:
             toe =discord.File(f)
         
         await context.send(file=toe)

@@ -71,7 +71,7 @@ class Holy(commands.Cog, name="holy"):
         """
 
         sacrifice_message = '*You hear something creeping towards you in the shadows. \nYou know what comes next, you made Ultimate Sacrifice. \nThe devotee needs piglets - and he needs them NOW.*'
-        with open("/images/piglets-now.png", 'rb') as f:
+        with open("images/piglets-now.png", 'rb') as f:
             piglets_now =discord.File(f)
 
         await context.send(sacrifice_message, file=piglets_now)
