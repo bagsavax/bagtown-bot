@@ -230,3 +230,4 @@ async def load_cogs() -> None:
 asyncio.run(init_db())
 asyncio.run(load_cogs())
 bot.run(os.getenv("DISCORD_TOKEN"))
+# pls
