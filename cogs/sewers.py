@@ -100,35 +100,35 @@ class Sewers(commands.Cog, name="sewers"):
         c = response.choices[0].text
         await context.send(c)
         # Don't forget to remove "pass", I added this just because there's no content in the method.
-    @commands.has_role("sewer schemers")
-    @commands.hybrid_command(
-    name="bags",
-    description="Will make a bag out of you")
-    async def bagperson(self, context: Context, user:discord.User = None):
-        """
-        This is a testing command that does nothing.
+    # @commands.has_role("sewer schemers")
+    # @commands.hybrid_command(
+    # name="bags",
+    # description="Will make a bag out of you")
+    # async def bagperson(self, context: Context, user:discord.User = None):
+    #     """
+    #     This is a testing command that does nothing.
 
-        DALL-E prompts: Text prompt with descriptive focus on surroundings. the more specific the better
+    #     DALL-E prompts: Text prompt with descriptive focus on surroundings. the more specific the better
 
-        :param context: The application command context.
-        """
-        if user is None:
-            avatar_url = str(context.author.display_avatar)
-        else:
-            avatar_url = user.display_avatar
-        name = context.author.name
-        print(user)
-        byts = prep_gpt_image(avatar_url, name=str(context.author.name))
-        await context.send("pls be patient I'm a little slow at this")
-        response = await openai.Image.acreate_edit(
-            image=byts,
-            # mask=open('piglets-now2.png', "rb"),
-            prompt="The setting is an underground sewer. Sewers are large pipes where different kinds of waste flow. Sewers also contain wires running down the hallway and other things of that nature. A large sewer pipe that has some wires along the sides. Put the photo in that setting.",
-            n=1,
-            size='1024x1024', 
-            )
-        image_url = response['data'][0]['url']
-        await context.send(image_url)
+    #     :param context: The application command context.
+    #     """
+    #     if user is None:
+    #         avatar_url = str(context.author.display_avatar)
+    #     else:
+    #         avatar_url = user.display_avatar
+    #     name = context.author.name
+    #     print(user)
+    #     byts = prep_gpt_image(avatar_url, name=str(context.author.name))
+    #     await context.send("pls be patient I'm a little slow at this")
+    #     response = await openai.Image.acreate_edit(
+    #         image=byts,
+    #         # mask=open('piglets-now2.png', "rb"),
+    #         prompt="The setting is an underground sewer. Sewers are large pipes where different kinds of waste flow. Sewers also contain wires running down the hallway and other things of that nature. A large sewer pipe that has some wires along the sides. Put the photo in that setting.",
+    #         n=1,
+    #         size='1024x1024', 
+    #         )
+    #     image_url = response['data'][0]['url']
+    #     await context.send(image_url)
 
     @commands.Cog.listener('on_message')
     async def piggies(self, message):
@@ -137,7 +137,7 @@ class Sewers(commands.Cog, name="sewers"):
         """
         if message.author == self.bot.user or message.author.bot:
             return
-        if message.content.find('pig') != -1:
+        if message.content.lower().find('pig') != -1:
             await message.channel.send('piggies')
    
     @commands.Cog.listener('on_message')
@@ -148,7 +148,7 @@ class Sewers(commands.Cog, name="sewers"):
         if message.author == self.bot.user or message.author.bot:
             return
         
-        if message.content.startswith('where do the sewers go?'):
+        if message.content.find('what are the sewers') != -1 or message.content.find('where do the sewers go') != -1:
             await message.channel.send('They say they lead to another town. A utopia of sorts. Where bags are flying freely in the skies')
 
 
