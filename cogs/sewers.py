@@ -14,7 +14,6 @@ import os
 import openai
 from dotenv import load_dotenv
 from PIL import Image, ImageOps
-import numpy as np
 from io import BytesIO
 import requests
 from helpers.gpt_helpers import prep_gpt_image
